@@ -35,20 +35,22 @@
             class="carousel-control carousel-control--previous"
             type="button"
             data-carousel-direction="1"
-            aria-label="Show previous cans"
+            aria-label="Select previous can"
           >
             <span aria-hidden="true">←</span>
           </button>
           <p class="carousel-hint">
-            <span>Drag / swipe</span>
+            <span class="carousel-current" data-carousel-current aria-live="polite">
+              Sprite
+            </span>
             <i aria-hidden="true"></i>
-            <span>to browse</span>
+            <span>Drag to switch</span>
           </p>
           <button
             class="carousel-control carousel-control--next"
             type="button"
             data-carousel-direction="-1"
-            aria-label="Show next cans"
+            aria-label="Select next can"
           >
             <span aria-hidden="true">→</span>
           </button>
@@ -87,6 +89,11 @@
           “Soda Can” by Jeremy
         </a>
         · CC-BY 3.0 · via Poly Pizza
+      </p>
+      <p class="footer-credit">
+        The code by
+        <a href="https://fka.dev" target="_blank" rel="noreferrer">fka.dev</a>
+        using GPT-5.6 Sol Ultra
       </p>
     </footer>
 
