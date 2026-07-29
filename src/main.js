@@ -283,7 +283,10 @@ function setCanPose(can, index, progress, time) {
   const isHero = index === 3;
 
   const compact = innerWidth < 760;
-  const spread = compact ? 1.2 : 2.34;
+  // On portrait screens the lineup is a horizontally browsable rail. Keeping
+  // near-full can-width spacing prevents the seven models from being squeezed
+  // into (and intersecting inside) the narrow viewport.
+  const spread = compact ? 2.32 : 2.34;
   const introX = centered * spread;
   const introY = -0.45 + Math.cos(centered * 0.8) * 0.38;
   const introZ = -Math.abs(centered) * 0.2;
@@ -302,9 +305,10 @@ function setCanPose(can, index, progress, time) {
   const outerX = introX + outerDirection * (compact ? 8 : 12) * focusIn;
   const outerY = introY + Math.abs(centered) * 0.35 * focusIn;
 
-  const finalSpread = compact ? 1.08 : 2.02;
+  const finalScale = compact ? 0.62 : 0.9;
+  const finalSpread = compact ? 1.6 : 2.02;
   const finalX = centered * finalSpread;
-  const finalY = -0.72 + Math.abs(centered) * 0.1;
+  const finalY = -0.72 + Math.abs(centered) * (compact ? 0.14 : 0.1);
   const finalRotZ = centered * 0.055;
 
   let x = isHero ? lerp(introX, focusHeroX, focusIn) : outerX;
@@ -326,7 +330,7 @@ function setCanPose(can, index, progress, time) {
     x = lerp(x, finalX, returnIn);
     y = lerp(y, finalY, returnIn);
     z = lerp(z, 0, returnIn);
-    scale = lerp(scale, compact ? 0.75 : 0.9, returnIn);
+    scale = lerp(scale, finalScale, returnIn);
     rotX = lerp(rotX, 0, returnIn);
     rotY = lerp(rotY, index * 0.66 + Math.PI * 2, returnIn);
     rotZ = lerp(rotZ, finalRotZ, returnIn);
