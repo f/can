@@ -1,0 +1,532 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,600&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@1,700&display=swap");
+
+:root {
+  --ink: #f1eee5;
+  --paper: #090b0a;
+  --acid: #b9ff2f;
+  --red: #ef3d4d;
+  --scene-r: 7;
+  --scene-g: 9;
+  --scene-b: 9;
+  --progress: 0%;
+  color: var(--ink);
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink) transparent;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: rgb(var(--scene-r), var(--scene-g), var(--scene-b));
+  transition: background-color 80ms linear;
+}
+
+body::before {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+a {
+  color: inherit;
+}
+
+.boot {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  color: #f5f1e7;
+  background: #12130f;
+  transition: clip-path 850ms cubic-bezier(0.77, 0, 0.18, 1);
+  clip-path: inset(0);
+}
+
+.boot.is-ready {
+  pointer-events: none;
+  clip-path: inset(0 0 100% 0);
+}
+
+.boot__mark {
+  font-size: clamp(3rem, 9vw, 8rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+}
+
+.boot__line {
+  width: 100%;
+  height: 2px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.boot__line::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: var(--acid);
+  animation: load 900ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  transform-origin: left;
+}
+
+@keyframes load {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.webgl {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.site-header {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.25rem 2rem;
+  font-family: "DM Mono", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f6f2e8;
+}
+
+.wordmark {
+  justify-self: start;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-decoration: none;
+}
+
+.wordmark span {
+  color: var(--acid);
+}
+
+main {
+  position: relative;
+  z-index: 3;
+}
+
+.chapter {
+  position: relative;
+  min-height: 125vh;
+  padding: 7rem 5vw;
+}
+
+.chapter--intro {
+  min-height: 150vh;
+  overflow: hidden;
+}
+
+.display {
+  margin: 0;
+  font-size: clamp(5rem, 13.4vw, 13rem);
+  font-weight: 800;
+  line-height: 0.72;
+  letter-spacing: -0.065em;
+  text-transform: uppercase;
+}
+
+.display--intro {
+  position: absolute;
+  top: 18vh;
+  left: 50%;
+  width: 92vw;
+  transform: translateX(-50%);
+}
+
+.display__line {
+  display: block;
+  will-change: transform;
+}
+
+.display__line:last-child {
+  margin-left: 8vw;
+}
+
+.display__line--italic {
+  font-family: "Playfair Display", "Iowan Old Style", serif;
+  font-size: 0.83em;
+  font-style: italic;
+  letter-spacing: -0.07em;
+  text-transform: none;
+}
+
+.carousel-controls {
+  position: fixed;
+  z-index: 8;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms ease;
+}
+
+.is-carousel-active .carousel-controls {
+  opacity: 1;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 52%;
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0;
+  place-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 50%;
+  pointer-events: auto;
+  color: var(--ink);
+  background: rgba(5, 7, 6, 0.62);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  font-family: "DM Mono", monospace;
+  font-size: 1rem;
+  transform: translateY(-50%);
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.carousel-control--previous {
+  left: 1.5rem;
+}
+
+.carousel-control--next {
+  right: 1.5rem;
+}
+
+.carousel-control:hover,
+.carousel-control:focus-visible {
+  color: #071008;
+  background: var(--acid);
+  outline: none;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-control:active {
+  transform: translateY(-50%) scale(0.94);
+}
+
+.carousel-hint {
+  position: absolute;
+  bottom: 5.25vh;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  font-family: "DM Mono", monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.carousel-hint i {
+  position: relative;
+  width: 3.5rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.carousel-hint i::before,
+.carousel-hint i::after {
+  position: absolute;
+  top: -0.18rem;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-top: 1px solid currentColor;
+  border-left: 1px solid currentColor;
+  content: "";
+}
+
+.carousel-hint i::before {
+  left: 0;
+  transform: rotate(-45deg);
+}
+
+.carousel-hint i::after {
+  right: 0;
+  transform: rotate(135deg);
+}
+
+.is-carousel-active {
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.is-carousel-active a,
+.is-carousel-active button {
+  cursor: pointer;
+}
+
+.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.chapter--focus {
+  display: flex;
+  min-height: 145vh;
+  align-items: center;
+}
+
+.focus-copy {
+  width: min(35rem, 42vw);
+  margin-left: 4vw;
+}
+
+.display--focus {
+  margin: 2rem 0;
+  font-size: clamp(4.75rem, 10vw, 10rem);
+}
+
+.display--focus em {
+  font-family: "Playfair Display", "Iowan Old Style", serif;
+  font-size: 0.82em;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.chapter--burst {
+  display: flex;
+  min-height: 135vh;
+  flex-direction: column;
+  justify-content: center;
+  color: #f1eee5;
+}
+
+.burst-title {
+  margin: 0;
+  font-size: clamp(5rem, 14vw, 14rem);
+  font-weight: 800;
+  line-height: 0.67;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.burst-title span {
+  display: block;
+}
+
+.burst-title span:last-child {
+  margin-left: auto;
+  font-family: "Playfair Display", "Iowan Old Style", serif;
+  font-size: 0.79em;
+  font-style: italic;
+  text-transform: none;
+}
+
+.chapter--finale {
+  display: flex;
+  min-height: 150vh;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 28vh;
+  color: #f1eee5;
+}
+
+.finale-copy {
+  width: min(45rem, 55vw);
+}
+
+.finale-copy h2 {
+  margin: 0;
+  font-size: clamp(5rem, 12vw, 12rem);
+  font-weight: 800;
+  line-height: 0.72;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.progress {
+  position: fixed;
+  z-index: 8;
+  top: 50%;
+  right: 1.5rem;
+  display: flex;
+  height: 34vh;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: "DM Mono", monospace;
+  font-size: 0.5rem;
+  mix-blend-mode: difference;
+  color: #fff;
+  transform: translateY(-50%);
+}
+
+.progress__rail {
+  position: relative;
+  width: 1px;
+  height: 100%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.progress__rail i {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform: scaleY(var(--progress));
+  transform-origin: top;
+}
+
+footer {
+  position: relative;
+  z-index: 5;
+  padding: 1.5rem 5vw;
+  color: #f1eee5;
+  background: #10110e;
+  font-family: "DM Mono", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+footer p {
+  margin: 0;
+}
+
+noscript {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  color: white;
+  background: #111;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .chapter {
+    padding-inline: 1.25rem;
+  }
+
+  .display--intro {
+    top: 17vh;
+    width: calc(100vw - 2.5rem);
+    font-size: clamp(4.2rem, 20vw, 7rem);
+    line-height: 0.78;
+  }
+
+  .display__line:last-child {
+    margin-top: 0.15em;
+    margin-left: 0;
+  }
+
+  .carousel-control {
+    top: 56%;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .carousel-control--previous {
+    left: 0.6rem;
+  }
+
+  .carousel-control--next {
+    right: 0.6rem;
+  }
+
+  .carousel-hint {
+    bottom: 4vh;
+  }
+
+  .chapter--focus {
+    align-items: flex-start;
+    padding-top: 25vh;
+  }
+
+  .focus-copy {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .display--focus {
+    font-size: clamp(4.25rem, 20vw, 7rem);
+  }
+
+  .chapter--burst {
+    justify-content: flex-start;
+    padding-top: 33vh;
+  }
+
+  .burst-title {
+    font-size: clamp(4.1rem, 19vw, 7rem);
+  }
+
+  .burst-title span:last-child {
+    margin-top: 0.15em;
+  }
+
+  .chapter--finale {
+    align-items: flex-start;
+    padding-top: 25vh;
+  }
+
+  .finale-copy {
+    width: 100%;
+  }
+
+  .finale-copy h2 {
+    font-size: clamp(4.3rem, 20vw, 7rem);
+  }
+
+  .progress {
+    right: 0.55rem;
+  }
+
+  footer {
+    gap: 1rem;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .boot {
+    animation: none;
+    transition: none;
+  }
+}

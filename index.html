@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A kinetic lineup of iconic soda cans."
+    />
+    <title>CAN/DO — Kinetic cans</title>
+  </head>
+  <body>
+    <div class="boot" aria-hidden="true">
+      <span class="boot__mark">CAN/DO</span>
+      <span class="boot__line"></span>
+    </div>
+
+    <canvas class="webgl" aria-hidden="true"></canvas>
+
+    <header class="site-header">
+      <a class="wordmark" href="#start" aria-label="CAN/DO home">
+        CAN<span>/</span>DO
+      </a>
+    </header>
+
+    <main>
+      <section class="chapter chapter--intro" id="start" data-chapter="0">
+        <h1 class="display display--intro" aria-label="Seven cans. Zero restraint.">
+          <span class="display__line" data-depth="-0.28">Seven cans.</span>
+          <span class="display__line display__line--italic" data-depth="0.18">Zero restraint.</span>
+        </h1>
+
+        <div class="carousel-controls" aria-label="Browse the can lineup">
+          <button
+            class="carousel-control carousel-control--previous"
+            type="button"
+            data-carousel-direction="1"
+            aria-label="Show previous cans"
+          >
+            <span aria-hidden="true">←</span>
+          </button>
+          <p class="carousel-hint">
+            <span>Drag / swipe</span>
+            <i aria-hidden="true"></i>
+            <span>to browse</span>
+          </p>
+          <button
+            class="carousel-control carousel-control--next"
+            type="button"
+            data-carousel-direction="-1"
+            aria-label="Show next cans"
+          >
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="chapter chapter--focus" data-chapter="1">
+        <div class="focus-copy">
+          <h2 class="display display--focus">
+            Main<br /><em>character</em><br />energy.
+          </h2>
+        </div>
+      </section>
+
+      <section class="chapter chapter--burst" data-chapter="2">
+        <h2 class="burst-title">
+          <span>Built to</span>
+          <span>break boring.</span>
+        </h2>
+      </section>
+
+      <section class="chapter chapter--finale" id="details" data-chapter="3">
+        <div class="finale-copy">
+          <h2>Seven ways<br />to wake up.</h2>
+        </div>
+      </section>
+    </main>
+
+    <aside class="progress" aria-label="Scroll progress">
+      <span class="progress__rail"><i></i></span>
+    </aside>
+
+    <footer>
+      <p>
+        <a href="https://poly.pizza/m/cNjAaDY27fQ" target="_blank" rel="noreferrer">
+          “Soda Can” by Jeremy
+        </a>
+        · CC-BY 3.0 · via Poly Pizza
+      </p>
+    </footer>
+
+    <noscript>This kinetic study needs JavaScript to run.</noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
